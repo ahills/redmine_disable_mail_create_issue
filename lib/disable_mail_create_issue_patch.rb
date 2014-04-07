@@ -1,4 +1,5 @@
 require_dependency 'mail_handler'
+require_dependency 'mailer'
 
 module MailHandlerDisableCreateIssuePatch
     def self.included(base) # :nodoc:
@@ -11,14 +12,29 @@ module MailHandlerDisableCreateIssuePatch
 
     module InstanceMethods
         def dispatch_to_default_with_disable_create
-            project = target_project
-            Rails.logger.error "> project: #{project}"
-            #sender_email = email.from.to_a.first.to_s.strip
-            Rails.logger.error "> email: #{email.from.to_s}"
-            Rails.logger.error "> subject: #{email.subject.to_s}"
+            # Reply with canned message
+            rcpt_to = email.from.to_a.first.to_s
+            subject = "Re: #{email.subject.to_s}"
+            message = Setting.plugin_redmine_disable_mail_create_issue[:reject_message]
+
+            Mailer.new_issue_bounce(rcpt_to, subject, message).deliver
+        end
+    end
+end
+
+module MailerDisableCreateIssuePatch
+    def self.included(base) # :nodoc:
+        base.send(:include, InstanceMethods)
+    end
+
+    module InstanceMethods
+        def new_issue_bounce(rcpt, subj, message)
+            @body = message
+            mail :to => rcpt, :subject => subj
         end
     end
 end
 
 MailHandler.send(:include, MailHandlerDisableCreateIssuePatch)
+Mailer.send(:include, MailerDisableCreateIssuePatch)
 
