@@ -5,8 +5,8 @@ Redmine::Plugin.register :redmine_disable_mail_create_issue do
   author 'Andrew Hills'
   description 'A Redmine plugin to disable the creation of new issues via mail.'
   version '0.1'
-  url 'https://git.ednos.net/~ahills/redmine_disable_mail_create_issue.git'
-  author_url 'https://ednos.net/'
+  url 'https://github.com/ahills/redmine_disable_mail_create_issue.git'
+  author_url 'https://github.com/ahills'
 
   settings :default => {
       :reject_message => <<EOF

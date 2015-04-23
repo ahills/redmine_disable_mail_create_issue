@@ -1,3 +1,5 @@
-= redmine_disable_mail_create_issue
+= Redmine Disable Issue Creation by Mail Plugin
 
-Description goes here
+Very simple: incoming mail will not open a new issue. This restricts the use
+of mail to replying to issues.
+
