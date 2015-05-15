@@ -3,3 +3,4 @@
 Very simple: incoming mail will not open a new issue. This restricts the use
 of mail to replying to issues.
 
+Copyright © 2015 Andrew Hills. See LICENSE for details.
