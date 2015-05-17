@@ -1,0 +1,3 @@
+# Turkish strings by atopcu for Rails i18n
+tr:
+  reject_message: "Gönderinin Red Yanıtı"
